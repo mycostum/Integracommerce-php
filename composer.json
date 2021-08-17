@@ -1,0 +1,52 @@
+{
+    "name": "mycostum/integracommerce-php",
+    "description": "This is the official PHP SDK for integration with IntegraCommerce.",
+    "type": "library",
+    "require": {
+        "php": ">=7.0",
+        "guzzlehttp/guzzle": ">=6.3@dev",
+        "monolog/monolog": ">=1.23@dev"
+    },
+    "require-dev": {
+        "phpunit/phpunit": ">=6.5@dev",
+        "squizlabs/php_codesniffer": ">=3.3@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "IntegraCommerce\\": "src/"
+        },
+        "files": [
+            "src/functions.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "IntegraCommerceTest\\": "test/"
+        }
+    },
+    "license": "OSL-3.0",
+    "authors": [
+        {
+            "name": "christian2",
+            "email": "christian2@clhosting.com.br",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "christian2@clhosting.com.br"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "phpunit": [
+            "vendor/bin/phpunit -c ./phpunit.xml test/unit"
+        ],
+        "phpcs": [
+            "vendor/bin/phpcs --standard=PSR2 --severity=1 src"
+        ],
+        "tests": [
+            "@phpunit",
+            "@phpcs"
+        ]
+    }
+}
