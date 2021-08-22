@@ -126,6 +126,11 @@ abstract class ServiceAbstract implements ServiceInterface
 
             /** @var \Psr\Http\Message\ResponseInterface $request */
             $response = $this->httpClient()->request($method, $uri, $this->optionsBuilder->build());
+            $writer1 = new \Zend\Log\Writer\Stream(BP . '/var/log/apicall.log');
+            $logger1 = new \Zend\Log\Logger();
+            $logger1->addWriter($writer1);
+            $logger1->info('Reponse Success is '.json_encode($response));
+
 
             /** @var Api\Handler\Response\HandlerInterfaceSuccess $responseHandler */
             $responseHandler = new HandlerDefault($response);
@@ -136,11 +141,21 @@ abstract class ServiceAbstract implements ServiceInterface
             /** Service Request Exception */
             $responseHandler = new HandlerException($clientException);
 
+            $writer1 = new \Zend\Log\Writer\Stream(BP . '/var/log/apicall.log');
+            $logger1 = new \Zend\Log\Logger();
+            $logger1->addWriter($writer1);
+            $logger1->info('Reponse Error is '.json_encode($responseHandler));
+
             $logResponse = $this->getLoggerResponse()
                 ->importResponseExceptionHandler($responseHandler);
         } catch (\Exception $exception) {
             /** Service Request Exception */
             $responseHandler = new HandlerException($exception);
+
+            $writer1 = new \Zend\Log\Writer\Stream(BP . '/var/log/apicall.log');
+            $logger1 = new \Zend\Log\Logger();
+            $logger1->addWriter($writer1);
+            $logger1->info('Reponse Error is '.json_encode($responseHandler));
 
             $logResponse = $this->getLoggerResponse()
                 ->importResponseExceptionHandler($responseHandler);
